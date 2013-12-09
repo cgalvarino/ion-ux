@@ -101,8 +101,9 @@ IONUX.Views.DataTable = IONUX.Views.Base.extend({
             "bInfo":true,
             'bPaginate':true,
             'sPaginationType': 'two_button',
-            "sScrollY": "300px",
-            "sScrollYInner": "110%",
+            // Take out references to Y scrolling.  Not sure why they were here in the 1st place.
+            // "sScrollY": "300px",
+            // "sScrollYInner": "110%",
             "bScrollCollapse": true,
             "sScrollXInner": "100%",
             // Add title to cells, better way to do this?
