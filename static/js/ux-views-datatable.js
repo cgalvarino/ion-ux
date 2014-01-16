@@ -163,6 +163,11 @@ IONUX.Views.DataTable = IONUX.Views.Base.extend({
                 var numcolumns = this.oApi._fnVisbleColumns(oSettings);
                 addRows(this, numcolumns, oSettings._iDisplayLength);
               }
+            },
+            "fnInitComplete": function() {
+              // Make sure to undo any custom filtering when initted.  This caught me when
+              // checking on/off vals on the resource long list filter.
+              this.dataTableExt.afnFiltering = [];
             }
         });
         
