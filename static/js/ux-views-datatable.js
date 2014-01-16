@@ -35,6 +35,7 @@ TEST_TABLE_DATA = [
 
 
 /* The below will be View instance attrs: */
+/* Make sure that handlers exist for each of these down in filters_apply! */
 OPERATORS = ['CONTAINS', 'NEWER THAN', 'OLDER THAN', 'GREATER THAN', 'LESS THAN'];
 
 IONUX.Views.DataTable = IONUX.Views.Base.extend({
