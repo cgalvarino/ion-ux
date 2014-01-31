@@ -153,18 +153,16 @@ def attachment(attachment_id):
     attachment = StringIO(attachment_response.content)
     attachment_ext = guess_extension(attachment_response.headers.get('content-type'))
     attachment_name = request.args.get('name') if request.args.get('name') else 'OOI_%s' % attachment_id
-   
-    attachment_filename = '' 
-    #check ext not invalid
-    if attachment_ext is not None:
-        if (attachment_filename.endswith(attachment_ext)):
-            attachment_filename = '%s' % (attachment_name)
-        else: 
-            attachment_filename = '%s%s' % (attachment_name, attachment_ext)
-    else:   
-        attachment_filename = '%s' % (attachment_name)
+    attachment_filename = '%s' % attachment_name
+
+    # Add an extension if necessary.
+    if (attachment_ext is not None and not attachment_filename.lower().endswith(attachment_ext.lower())):
+      # Special case for JPEG because guess_extension comes back w/ JPE and we don't want that appended
+      # if the file already has JPG or JPEG.
+      if (attachment_ext == 'jpe' and not re.search('(JPG|JPEG)$',attachment_filename,re.IGNORECASE)):
+        app.logger.debug(attachment_ext)
+        attachment_filename += '%s' % (attachment_ext)
     
-    #return string 
     return send_file(attachment, attachment_filename=attachment_filename, as_attachment=True)
 
 @app.route('/attachment/', methods=['POST'])
