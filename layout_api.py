@@ -28,8 +28,9 @@ DEFINED_VIEWS = [
 class LayoutApi(object):
     @staticmethod
     def get_new_layout_schema():
-        layout_schema = service_gateway_get('directory', 'get_ui_specs', params={'user_id': 'tboteler'})
-        return layout_schema
+        with open(PORTAL_ROOT+'/static/js/ui_specs.json') as data_file:
+            data = json.load(data_file)
+        return data['data']['GatewayResponse']
     
     # Brute force method to quickly experiment with different rendering strategies
     # with CSS rules, etc. Optimizations/refactoring will be underway soon.
