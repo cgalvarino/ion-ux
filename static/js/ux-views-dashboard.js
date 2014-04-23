@@ -48,7 +48,8 @@ IONUX.Views.DataAssetFilter = Backbone.View.extend({
     IONUX.CurrentFilter = mode;
     if (mode == 'dataproduct') {
       $('#left .asset-mode').hide();
-      $("#left .dataproduct-mode").show(); 
+      $("#left .dataproduct-mode").show();
+    } else {
       $("#left .dataproduct-mode").hide();
       $('#left .asset-mode').show();
     };
