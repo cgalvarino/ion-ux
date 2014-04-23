@@ -587,3 +587,26 @@ IONUX.Views.NegotiationActions = IONUX.Views.ActionMenu.extend({
       }
     },
 });
+
+IONUX.Views.TableViewActions = IONUX.Views.ActionMenu.extend({
+    "events": _.extend({
+        "hover": "action_controls_onhover",
+    }, IONUX.Views.ActionMenu.prototype.events),
+
+    initialize: function() {
+        this.interaction_items = ['Category View','Table View'];
+        this.on("action__category_view", this.toggle_view);
+        this.on("action__table_view", this.toggle_view);
+        this.create_actionmenu();
+    },
+
+    toggle_view: function(e) {
+        IONUX.CategoryGrouping = !IONUX.CategoryGrouping;
+        if (IONUX.CurrentFilter == 'asset') {
+            IONUX.Dashboard.MapView.map_dashboard_table.filter_and_render();
+        }
+        else {
+            IONUX.Dashboard.MapView.map_data_product_table.filter_and_render();
+        }
+    },
+});

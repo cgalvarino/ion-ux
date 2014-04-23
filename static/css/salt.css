@@ -3046,3 +3046,20 @@ input.textfield_geo{
 .command-output {
   word-wrap: break-word;
 }
+
+.expanded-group{
+  background: url("/static/img/minus.jpg") no-repeat scroll left center transparent;
+  padding-left: 15px !important
+}
+
+.collapsed-group{
+  background: url("/static/img/plus.jpg") no-repeat scroll left center transparent;
+  padding-left: 15px !important
+}
+
+.category{
+  background-color: #E1E1E1;
+  padding-top : 5px !important;
+  padding-bottom : 5px !important;
+  font-weight : 500 !important;
+}
