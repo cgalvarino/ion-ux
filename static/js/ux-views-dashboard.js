@@ -28,6 +28,7 @@ IONUX.Views.ViewControls = Backbone.View.extend({
 
 // Keeps track of state -- possibly move into it's own model and bind listeners.
 IONUX.CurrentFilter = 'dataproduct';
+IONUX.CategoryGrouping = false;
 IONUX.Views.DataAssetFilter = Backbone.View.extend({
   el: '#map-asset-data-menu',
   template: _.template('<span class="data-filter active" data-mode="dataproduct">Data</span><span class="asset-filter" data-mode="asset">Asset</span>'),
@@ -47,8 +48,7 @@ IONUX.Views.DataAssetFilter = Backbone.View.extend({
     IONUX.CurrentFilter = mode;
     if (mode == 'dataproduct') {
       $('#left .asset-mode').hide();
-      $("#left .dataproduct-mode").show();
-    } else {
+      $("#left .dataproduct-mode").show(); 
       $("#left .dataproduct-mode").hide();
       $('#left .asset-mode').show();
     };
@@ -1116,13 +1116,14 @@ IONUX.Views.MapDashboardTable = IONUX.Views.DataTable.extend({
     _.bindAll(this);
     this.$el.show();
     this.whitelist = this.options.list_table ? IONUX.ListWhitelist : IONUX.MapWhitelist;
-    this.filter_data();
     this.collection.on('data:filter_render', this.filter_and_render);
     IONUX.Views.DataTable.prototype.initialize.call(this);
+    this.filter_and_render();
   },
   
   filter_data: function() {
     this.options.data = [];
+    this.options.categoryGrouping = IONUX.CategoryGrouping;
     if (!_.isEmpty(this.whitelist)) {
        _.each(this.collection.models, function(resource) {
          var rt = resource.get('alt_resource_type') ? resource.get('alt_resource_type') : resource.get('type_');
@@ -1140,6 +1141,7 @@ IONUX.Views.MapDashboardTable = IONUX.Views.DataTable.extend({
   filter_and_render: function() {
     this.filter_data();
     this.render();
+    new IONUX.Views.TableViewActions({el:$('#dynamic-container #2163993').find('.filter-header')});
   },
 });
 
@@ -1157,6 +1159,7 @@ IONUX.Views.MapDataProductTable = IONUX.Views.DataTable.extend({
   
   filter_data: function() {
     this.options.data = [];
+    this.options.categoryGrouping = IONUX.CategoryGrouping;
     if (!_.isEmpty(this.whitelist)) {
        _.each(this.collection.models, function(resource) {
          var opn = resource.get('ooi_product_name')
@@ -1173,6 +1176,7 @@ IONUX.Views.MapDataProductTable = IONUX.Views.DataTable.extend({
   filter_and_render: function() {
     this.filter_data();
     this.render();
+    new IONUX.Views.TableViewActions({el:$('#dynamic-container #2163993').find('.filter-header')});
   },
 });
 
@@ -1214,7 +1218,6 @@ IONUX.Views.ResourceTable = IONUX.Views.DataTable.extend({
     this.$el.show();
     this.filter_data();
     this.collection.on('data:filter_render', this.filter_and_render);
-    IONUX.Views.DataTable.prototype.initialize.call(this);
   },
   
   filter_data: function() {
@@ -1339,6 +1342,7 @@ IONUX.Views.MapFilter = Backbone.View.extend({
       IONUX.MapWhitelist.splice(index, 1);
     };
     IONUX.Dashboard.MapResources.trigger('data:filter_render');
+console.log('data:filter_render');
     return;
   }
 });

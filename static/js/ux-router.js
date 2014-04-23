@@ -41,8 +41,7 @@ IONUX.Router = Backbone.Router.extend({
     };
     
     // render empty table.
-    new IONUX.Views.MapDataProductTable({el: $('#dynamic-container #2163993'), collection: IONUX.Dashboard.MapDataResources});
-    
+    var table = new IONUX.Views.MapDataProductTable({el: $('#dynamic-container #2163993'), collection: IONUX.Dashboard.MapDataResources});
     
     if (!IONUX.Dashboard.MapView){
       IONUX.Dashboard.MapView = new IONUX.Views.Map({
@@ -55,6 +54,7 @@ IONUX.Router = Backbone.Router.extend({
       IONUX.Dashboard.MapView.draw_map();
       IONUX.Dashboard.MapView.draw_markers();
     }
+    IONUX.Dashboard.MapView.map_data_product_table = table;
   },
   
 dashboard_map_resource: function(resource_id) {
@@ -140,7 +140,8 @@ dashboard_map_resource: function(resource_id) {
         reset: true,
         success: function(resp) {
           var resource_types = _.map(resp.models, function(r) { return r.get('type_')});
-          new IONUX.Views.MapDashboardTable({el: $('#dynamic-container #2163993'), collection: resp});
+          var table = new IONUX.Views.MapDashboardTable({el: $('#dynamic-container #2163993'), collection: resp});
+          IONUX.Dashboard.MapView.map_dashboard_table = table;
           // check_map();
         }
       });

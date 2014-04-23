@@ -146,7 +146,8 @@ IONUX.Views.DataTable = IONUX.Views.Base.extend({
             "aaData":table_data,
             "aoColumns":header_data,
             "bInfo":true,
-            'bPaginate':true,
+            'bPaginate':!this.options.categoryGrouping,
+            'bInfo':!this.options.categoryGrouping,
             'sPaginationType': 'two_button',
             'iDisplayLength' : 10, // 10 is the default
             "sScrollYInner": "110%",
@@ -170,6 +171,18 @@ IONUX.Views.DataTable = IONUX.Views.Base.extend({
               this.dataTableExt.afnFiltering = [];
             }
         });
+        if (this.options.categoryGrouping) {
+            this.datatable.rowGrouping({
+                 bExpandableGrouping  : true
+                ,asExpandedGroups     : []
+                ,iGroupingColumnIndex : 2
+                ,sGroupingClass       : 'category'
+                ,fnOnGroupCompleted   : function(oGroup) {
+                    var length = $(oGroup.nGroup.parentElement).find('tr' + oGroup.groupItemClass).length;
+                    $(oGroup.nGroup).find("td").append(' [ ' + length + ' ]');
+                }
+            });
+        }
         
         if (this.sort_order_array) this.datatable.fnSort(this.sort_order_array);
 
@@ -573,6 +586,9 @@ IONUX.Views.DataTable = IONUX.Views.Base.extend({
     },
 
     table_row_click: function(evt){
+        if ($(evt.target).hasClass('category')) {
+            return;
+        }
         evt.preventDefault();
         var target = $(evt.target);
         var row_index =  target.parent().index() + this.datatable.fnSettings()._iDisplayStart;
