@@ -177,9 +177,18 @@ IONUX.Views.DataTable = IONUX.Views.Base.extend({
                 ,asExpandedGroups     : []
                 ,iGroupingColumnIndex : 2
                 ,sGroupingClass       : 'category'
-                ,fnOnGroupCompleted   : function(oGroup) {
-                    var length = $(oGroup.nGroup.parentElement).find('tr' + oGroup.groupItemClass).length;
-                    $(oGroup.nGroup).find("td").append(' [ ' + length + ' ]');
+                ,fnOnGroupCompleted   : function(oGroup) { 
+                    var rows = $(oGroup.nGroup.parentElement).find('tr' + oGroup.groupItemClass);
+                    $(oGroup.nGroup).find("td").append(' <span class="category-count">[ ' + rows.length + ' ]</span>');
+                    // color the rows w/i a category according to odd and even (odd/even is based on 1-index)
+                    for (var i = 1; i <= rows.length; i++) {
+                       if (i % 2 == 0) {
+                           $(rows[i - 1]).toggleClass('odd',false).addClass('even');
+                       }
+                       else {
+                           $(rows[i - 1]).toggleClass('even',false).addClass('odd');
+                       }
+                    }
                 }
             });
         }

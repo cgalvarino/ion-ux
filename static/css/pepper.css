@@ -3064,12 +3064,14 @@ h3 .toggle-all-menu-selected:hover {
 
 .expanded-group{
   background: url("/static/img/minus.jpg") no-repeat scroll left center transparent;
-  padding-left: 15px !important
+  background-position: 5px;
+  padding-left: 20px !important;
 }
 
 .collapsed-group{
   background: url("/static/img/plus.jpg") no-repeat scroll left center transparent;
-  padding-left: 15px !important
+  background-position: 5px;
+  padding-left: 20px !important;
 }
 
 .category{
@@ -3077,4 +3079,8 @@ h3 .toggle-all-menu-selected:hover {
   padding-top : 5px !important;
   padding-bottom : 5px !important;
   font-weight : 500 !important;
+}
+
+.category-count {
+  font-weight : 100 !important;
 }
