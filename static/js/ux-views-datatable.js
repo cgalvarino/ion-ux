@@ -596,7 +596,8 @@ IONUX.Views.DataTable = IONUX.Views.Base.extend({
     },
 
     table_row_click: function(evt){
-        if ($(evt.target).hasClass('category')) {
+        // Don't go to a facepage if this is a category summary header.
+        if (IONUX.CategoryGrouping && ($(evt.target).hasClass('category') || $(evt.target).css('display') == 'inline-block' || $(evt.target).find('[style="display:inline-block"]').length > 0)) {
             return;
         }
         evt.preventDefault();
