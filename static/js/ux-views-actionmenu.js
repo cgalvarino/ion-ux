@@ -594,13 +594,29 @@ IONUX.Views.TableViewActions = IONUX.Views.ActionMenu.extend({
 
     initialize: function() {
         this.interaction_items = ['Category View','Table View'];
-        this.on("action__category_view", this.toggle_view);
-        this.on("action__table_view", this.toggle_view);
+        this.on("action__category_view", this.category_view);
+        this.on("action__table_view", this.table_view);
         this.create_actionmenu();
     },
 
-    toggle_view: function(e) {
-        IONUX.CategoryGrouping = !IONUX.CategoryGrouping;
+    category_view: function(e) {
+        if (IONUX.CategoryGrouping) {
+            return;
+        }
+        IONUX.CategoryGrouping = true;
+        if (IONUX.CurrentFilter == 'asset') {
+            IONUX.Dashboard.MapView.map_dashboard_table.filter_and_render();
+        }
+        else {
+            IONUX.Dashboard.MapView.map_data_product_table.filter_and_render();
+        }
+    },
+
+    table_view: function(e) {
+        if (!IONUX.CategoryGrouping) {
+            return;
+        }
+        IONUX.CategoryGrouping = false;
         if (IONUX.CurrentFilter == 'asset') {
             IONUX.Dashboard.MapView.map_dashboard_table.filter_and_render();
         }

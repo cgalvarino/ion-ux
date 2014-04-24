@@ -1246,6 +1246,29 @@ IONUX.Views.ResourceTable = IONUX.Views.DataTable.extend({
 });
 
 
+IONUX.Filters = [
+      {label: 'Attachment', type: 'Attachment', sprite: 'attachment-option'},
+      {label: 'Data Process Definition', type: 'DataTransform', sprite: 'datatransform-option'},
+      {label: 'Data Process', type: 'DataProcess', sprite: 'dataprocess-option'},
+      {label: 'Data Product', type: 'DataProduct', sprite: 'dataproduct-option'},
+      {label: 'Dataset Agent Instance',type:'ExternalDatasetAgentInstance', sprite: 'externaldataagentinstance-option'},
+      {label: 'Dataset Agent', type: 'ExternalDatasetAgent', sprite: 'externaldataagent-option'},
+      {label: 'Deployment', type: 'Deployment', sprite: 'deployment-option'},
+      {label: 'Instrument Agent Instance', type: 'InstrumentAgentInstance', sprite: 'instrumentagentdef-option'},
+      {label: 'Instrument Agent', type: 'InstrumentAgent', sprite: 'instrumentagent-option'},
+      {label: 'Instrument Model', type: 'InstrumentModel', sprite: 'instrumentmodel-option'},
+      {label: 'Instrument Portal', type: 'InstrumentSite', sprite: 'instrumentportal-option'},
+      {label: 'Instrument', type: 'InstrumentDevice', sprite: 'instrumentdevice-option'},
+      {label: 'Platform Agent Instance', type: 'PlatformAgentInstance', sprite: 'platformagent-option'},
+      {label: 'Platform Agent', type: 'PlatformAgent', sprite: 'platformagentdef-option'},
+      {label: 'Platform Model', type: 'PlatformModel', sprite: 'platformmodel-option'},
+      {label: 'Platform Portal', type: 'PlatformComponentSite', sprite: 'platformportal-option'},
+      {label: 'Platform', type: 'PlatformDevice', sprite: 'platformdevice-option'},
+      {label: 'Role', type: 'UserRole', sprite: 'role-option'},
+      {label: 'Site', type: 'Observatory', sprite: 'site-option'},
+      {label: 'Station', type: 'StationSite', sprite: 'station-option'},
+      {label: 'Platform Portal', type: 'PlatformSite', sprite: 'platformportal-option'},
+];
 
 /* 
 - - - - - - - - - - - - - - - - - 
@@ -1257,23 +1280,13 @@ IONUX.MapWhitelist = [];
 IONUX.Views.MapFilter = Backbone.View.extend({
   el: '#map-filter',
   filter_options: {
-    short_asset_options: [
-      {label: 'Station', type: 'StationSite', sprite: 'station-option'},
-      {label: 'Instrument Portal', type: 'InstrumentSite', sprite: 'instrumentportal-option'},
-      {label: 'Platform Portal', type: 'PlatformComponentSite', sprite: 'platformportal-option'},
-      {label: 'Platform', type: 'PlatformDevice', sprite: 'platformdevice-option'},
-      {label: 'Instrument', type: 'InstrumentDevice', sprite: 'instrumentdevice-option'},
-    ],
-    long_asset_options: [
-      {label: 'Station', type: 'StationSite', sprite: 'station-option'},
-      {label: 'Instrument Portal', type: 'InstrumentSite', sprite: 'instrumentportal-option'},
-      {label: 'Platform Portal', type: 'PlatformComponentSite', sprite: 'platformportal-option'},
-      {label: 'Platform', type: 'PlatformDevice', sprite: 'platformdevice-option'},
-      {label: 'Instrument', type: 'InstrumentDevice', sprite: 'instrumentdevice-option'},
-    ],
-    data_options: [
-      {label: 'Data Products', type: 'DataProduct'}
-    ],
+    short_asset_options: (function() {
+      var a = [];
+      _.each(['StationSite','InstrumentSite','PlatformComponentSite','PlatformDevice','InstrumentDevice'],function(o){
+        a.push(_.findWhere(IONUX.Filters,{type : o}));
+      })
+      return a;
+    })(),
     lcstate_options: [
       {label: 'Draft', lcstate: 'DRAFT'},
       {label: 'Planned', lcstate: 'PLANNED'},
@@ -1310,8 +1323,8 @@ IONUX.Views.MapFilter = Backbone.View.extend({
     // Should not be in separate templates? 
     // Waiting for definitive filter behavior before consolidating.
     // ASSET filter
-    var item_tmpl = '<div class="filter-option <%= sprite %> <%= oddEven %>"><div class="pull-right"><input type="checkbox" value="<%= type %>" checked /></div><span style="padding-right:27px"><%= label %></span></div>';
-    var lcstate_tmpl = '<div class="filter-option lcstate-option <%= oddEven %>"><div class="pull-right"><input type="checkbox" value="<%= lcstate %>" checked /></div><span style="padding-right:27px"><%= label %></span></div>';
+    var item_tmpl = '<div class="filter-option <%= sprite %> <%= oddEven %>"><div class="pull-right"><input type="checkbox" value="<%= type %>" data-nice-name="<%= label %>" checked /></div><span style="padding-right:27px"><%= label %></span></div>';
+    var lcstate_tmpl = '<div class="filter-option lcstate-option <%= oddEven %>"><div class="pull-right"><input type="checkbox" value="<%= lcstate %>" data-nice-name="<%= label %>" checked /></div><span style="padding-right:27px"><%= label %></span></div>';
 
     var c = 1;
     var assets_elmt = this.$el.find('#asset-filter');
@@ -1380,35 +1393,20 @@ IONUX.ListWhitelist = ['DataProduct', 'InstrumentDevice', 'PlatformDevice', 'Sta
 IONUX.Views.ListFilter = Backbone.View.extend({
   el: '#list-filter',
   filter: {
-    short: [
-      {label: 'Data Product', type: 'DataProduct', sprite: 'dataproduct-option'},
-      {label: 'Instrument', type: 'InstrumentDevice', sprite: 'instrumentdevice-option'},
-      {label: 'Platform', type: 'PlatformDevice', sprite: 'platformdevice-option'},
-      {label: 'Station', type: 'StationSite', sprite: 'station-option'},
-      {label: 'Site', type: 'Observatory', sprite: 'site-option'},
-    ],
-    long: [
-      {label: 'Attachment', type: 'Attachment', sprite: 'attachment-option'},
-      {label: 'Data Process Definition', type: 'DataTransform', sprite: 'datatransform-option'},
-      {label: 'Data Process', type: 'DataProcess', sprite: 'dataprocess-option'},
-      {label: 'Data Product', type: 'DataProduct', sprite: 'dataproduct-option'},
-      {label: 'Dataset Agent Instance',type:'ExternalDatasetAgentInstance', sprite: 'externaldataagentinstance-option'},
-      {label: 'Dataset Agent', type: 'ExternalDatasetAgent', sprite: 'externaldataagent-option'},
-      {label: 'Deployment', type: 'Deployment', sprite: 'deployment-option'},
-      {label: 'Instrument Agent Instance', type: 'InstrumentAgentInstance', sprite: 'instrumentagentdef-option'},
-      {label: 'Instrument Agent', type: 'InstrumentAgent', sprite: 'instrumentagent-option'},
-      {label: 'Instrument Model', type: 'InstrumentModel', sprite: 'instrumentmodel-option'},
-      {label: 'Instrument Portal', type: 'InstrumentSite', sprite: 'instrumentportal-option'},
-      {label: 'Instrument', type: 'InstrumentDevice', sprite: 'instrumentdevice-option'},
-      {label: 'Platform Agent Instance', type: 'PlatformAgentInstance', sprite: 'platformagent-option'},
-      {label: 'Platform Agent', type: 'PlatformAgent', sprite: 'platformagentdef-option'},
-      {label: 'Platform Model', type: 'PlatformModel', sprite: 'platformmodel-option'},
-      {label: 'Platform Portal', type: 'PlatformComponentSite', sprite: 'platformportal-option'},
-      {label: 'Platform', type: 'PlatformDevice', sprite: 'platformdevice-option'},
-      {label: 'Role', type: 'UserRole', sprite: 'role-option'},
-      {label: 'Site', type: 'Observatory', sprite: 'site-option'},
-      {label: 'Station', type: 'StationSite', sprite: 'station-option'},
-    ]
+    short: (function() {
+      var a = [];
+      _.each(['DataProduct','InstrumentDevice','PlatformDevice','StationSite','Observatory'],function(o){
+        a.push(_.findWhere(IONUX.Filters,{type : o}));
+      })
+      return a;
+    })(),
+    long: (function() {
+      var a = [];
+      _.each(['Attachment','DataTransform','DataProcess','DataProduct','ExternalDatasetAgentInstance','ExternalDatasetAgent','Deployment','InstrumentAgentInstance','InstrumentAgent','InstrumentModel','InstrumentSite','InstrumentDevice','PlatformAgentInstance','PlatformAgent','PlatformModel','PlatformComponentSite','PlatformDevice','UserRole','Observatory','StationSite'],function(o){
+        a.push(_.findWhere(IONUX.Filters,{type : o}));
+      })
+      return a;
+    })(),
   },
   template: '\
     <h3 id="list-filter-heading">Resource Type\
