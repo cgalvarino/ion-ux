@@ -152,7 +152,8 @@ IONUX.Views.DataTable = IONUX.Views.Base.extend({
             'iDisplayLength' : 10, // 10 is the default
             "sScrollYInner": "110%",
             "bScrollCollapse": true,
-            "sScrollXInner": "100%",
+            "sScrollXInner": "100%", 
+            "bAutoWidth": false,
             // Add title to cells, better way to do this?
             "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
               $('td', nRow).each(function() {
