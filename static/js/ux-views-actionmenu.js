@@ -594,7 +594,7 @@ IONUX.Views.TableViewActions = IONUX.Views.ActionMenu.extend({
     }, IONUX.Views.ActionMenu.prototype.events),
 
     initialize: function() {
-        this.interaction_items = ['Category View','Table View'];
+        this.interaction_items = ['Table View','Category View'];
         this.on("action__category_view", this.category_view);
         this.on("action__table_view", this.table_view);
         this.create_actionmenu();

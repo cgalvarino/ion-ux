@@ -3049,18 +3049,31 @@ input.textfield_geo{
 
 .expanded-group{
   background: url("/static/img/minus.jpg") no-repeat scroll left center transparent;
+  background: url("/static/img/minus.jpg") no-repeat, -moz-linear-gradient(top,  #ebebeb 0%, #cdcdcd 50%, #b9b9b9 100%); /* FF3.6+ */
+  background: url("/static/img/minus.jpg") no-repeat, -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebebeb), color-stop(50%,#cdcdcd), color-stop(100%,#b9b9b9)); /* Chrome,Safari4+ */
+  background: url("/static/img/minus.jpg") no-repeat, -webkit-linear-gradient(top,  #ebebeb 0%,#cdcdcd 50%,#b9b9b9 100%); /* Chrome10+,Safari5.1+ */
+  background: url("/static/img/minus.jpg") no-repeat, -o-linear-gradient(top,  #ebebeb 0%,#cdcdcd 50%,#b9b9b9 100%); /* Opera 11.10+ */
+  background: url("/static/img/minus.jpg") no-repeat, -ms-linear-gradient(top,  #ebebeb 0%,#cdcdcd 50%,#b9b9b9 100%); /* IE10+ */
+  background: url("/static/img/minus.jpg") no-repeat, linear-gradient(to bottom,  #ebebeb 0%,#cdcdcd 50%,#b9b9b9 100%); /* W3C */
+
   background-position: 5px;
   padding-left: 20px !important;
 }
 
 .collapsed-group{
   background: url("/static/img/plus.jpg") no-repeat scroll left center transparent;
+  background: url("/static/img/plus.jpg") no-repeat, -moz-linear-gradient(top,  #ebebeb 0%, #cdcdcd 50%, #b9b9b9 100%); /* FF3.6+ */
+  background: url("/static/img/plus.jpg") no-repeat, -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ebebeb), color-stop(50%,#cdcdcd), color-stop(100%,#b9b9b9)); /* Chrome,Safari4+ */
+  background: url("/static/img/plus.jpg") no-repeat, -webkit-linear-gradient(top,  #ebebeb 0%,#cdcdcd 50%,#b9b9b9 100%); /* Chrome10+,Safari5.1+ */
+  background: url("/static/img/plus.jpg") no-repeat, -o-linear-gradient(top,  #ebebeb 0%,#cdcdcd 50%,#b9b9b9 100%); /* Opera 11.10+ */
+  background: url("/static/img/plus.jpg") no-repeat, -ms-linear-gradient(top,  #ebebeb 0%,#cdcdcd 50%,#b9b9b9 100%); /* IE10+ */
+  background: url("/static/img/plus.jpg") no-repeat, linear-gradient(to bottom,  #ebebeb 0%,#cdcdcd 50%,#b9b9b9 100%); /* W3C */
+
   background-position: 5px;
   padding-left: 20px !important;
 }
 
 .category{
-  background-color: #E1E1E1;
   padding-top : 5px !important;
   padding-bottom : 5px !important;
   font-weight : 500 !important;
