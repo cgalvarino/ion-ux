@@ -1219,6 +1219,7 @@ IONUX.Views.ResourceTable = IONUX.Views.DataTable.extend({
     this.$el.show();
     this.filter_data();
     this.collection.on('data:filter_render', this.filter_and_render);
+    IONUX.Views.DataTable.prototype.initialize.call(this);
   },
   
   filter_data: function() {
