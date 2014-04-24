@@ -175,11 +175,11 @@ IONUX.Views.DataTable = IONUX.Views.Base.extend({
             this.datatable.rowGrouping({
                  bExpandableGrouping  : true
                 ,asExpandedGroups     : []
-                ,iGroupingColumnIndex : 2
+                ,iGroupingColumnIndex : 1
                 ,sGroupingClass       : 'category'
                 ,fnOnGroupCompleted   : function(oGroup) { 
                     var rows = $(oGroup.nGroup.parentElement).find('tr' + oGroup.groupItemClass);
-                    $(oGroup.nGroup).find("td").append(' <span class="category-count">[ ' + rows.length + ' ]</span>');
+                    $($(oGroup.nGroup).find("td").find("div")[0]).append("<div style='display:inline-block' class='category-count'>&nbsp;&nbsp;[ " + rows.length + " ]</div>");
                     // color the rows w/i a category according to odd and even (odd/even is based on 1-index)
                     for (var i = 1; i <= rows.length; i++) {
                        if (i % 2 == 0) {
@@ -431,8 +431,9 @@ IONUX.Views.DataTable = IONUX.Views.Base.extend({
             default:
                 var type_css = 'resource_mini';
         };
-        
-        var html = "<div class='sprite "+type_css+"' title='"+resource_type+"'>&nbsp;</div>";
+
+        var nice_name = _.findWhere(IONUX.Filters,{type : resource_type}).label;
+        var html = "<div><div style='display:inline-block;width:20px' class='sprite "+type_css+"' title='"+nice_name+"'>&nbsp</div><div style='display:inline-block'>" + nice_name + "</div></div>";
         return html;
     },
 
