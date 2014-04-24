@@ -1344,7 +1344,6 @@ IONUX.Views.MapFilter = Backbone.View.extend({
       IONUX.MapWhitelist.splice(index, 1);
     };
     IONUX.Dashboard.MapResources.trigger('data:filter_render');
-console.log('data:filter_render');
     return;
   }
 });
