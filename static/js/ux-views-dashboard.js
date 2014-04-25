@@ -1323,8 +1323,8 @@ IONUX.Views.MapFilter = Backbone.View.extend({
     // Should not be in separate templates? 
     // Waiting for definitive filter behavior before consolidating.
     // ASSET filter
-    var item_tmpl = '<div class="filter-option <%= sprite %> <%= oddEven %>"><div class="pull-right"><input type="checkbox" value="<%= type %>" data-nice-name="<%= label %>" checked /></div><span style="padding-right:27px"><%= label %></span></div>';
-    var lcstate_tmpl = '<div class="filter-option lcstate-option <%= oddEven %>"><div class="pull-right"><input type="checkbox" value="<%= lcstate %>" data-nice-name="<%= label %>" checked /></div><span style="padding-right:27px"><%= label %></span></div>';
+    var item_tmpl = '<div class="filter-option <%= sprite %> <%= oddEven %>"><div class="pull-right"><input type="checkbox" value="<%= type %>" checked /></div><span style="padding-right:27px"><%= label %></span></div>';
+    var lcstate_tmpl = '<div class="filter-option lcstate-option <%= oddEven %>"><div class="pull-right"><input type="checkbox" value="<%= lcstate %>" checked /></div><span style="padding-right:27px"><%= label %></span></div>';
 
     var c = 1;
     var assets_elmt = this.$el.find('#asset-filter');
